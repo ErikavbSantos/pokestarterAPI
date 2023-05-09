@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pokedex feita para uma atividade da cadeira de Mobile da faculdade">
+    <meta name="theme-color" content="#242323">
+
+    <title>Poke Starters</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="manifest" href="manifest.json" />
+    <script>navigator.serviceWorker.register("service-worker.js")</script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <div class="cabecalho">
+        <img class="eevee" src="assets/gifs/eeveeGif.gif" alt="Eevee's Gif">
+        <h1>Poke Starters</h1>
+        <img class="pikachu" src="assets/gifs/pikachuGif.gif" alt="Pikachu's Gif">
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            <h2 class="titulo">All starters</h2>
+                <div class="starter-sprites">
+                    <div class="starter-card">
+                        <img src="assets/sprites/bulbasaur.png" alt="bulbasaur">
+                        <p>Bulbasaur</p>
+                    </div>
+                    <div class="starter-card">
+                        <img src="assets/sprites/charmander.png" alt="charmander">
+                        <p>Charmander</p>
+                    </div>
+                    <div class="starter-card">
+                        <img src="assets/sprites/squirtle.png" alt="squirtle">
+                        <p>Squirtle</p>
+                    </div>
+                </div>
+            <p class="legenda">From <b>Gen1</b> to <b>Gen7</b></p>
+        </div>
+    </div>
+
+    <div class="area-de-pesquisa">
+        <input type="text" id="search-field" placeholder="Search for a Starter">
+        <P class="criteria">What is the search criteria?</P>
+        <div class="botoes">
+            <input type="submit" value="Name" class="botao" onclick="porNome()" required="required">
+            <input type="submit" value="Type" class="botao" onclick="porTipo()" required="required">
+            <input type="submit" value="Region" class="botao" onclick="porRegiao()" required="required">
+        </div>
+    </div>
+    <input type="submit" value="pome" class="botao" onclick="pome()">
+    <div class="imm" style="margin: 10px 90px;"></div>
+    
+
+    <script>
+        function pome() {
+          $('.imm').empty();
+    
+          var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://127.0.0.1:3000/pokemon/",
+            "method": "GET"
+          }
+    
+          $.ajax(settings).done(function (response) {
+            console.log(response);
+            var pokemon = response.pokemon;
+            console.log (pokemon);
+
+            var tela = document.querySelector('.imm');
+            //for(var i=0; i<= carros.length; i++){
+              tela.innerHTML = `ashdgfuihdfiu`;
+                //tela.innerHTML += `name: ${pokemon[0].name}<br>`;
+                //tela.innerHTML += `type: ${pokemon[0].type}<br>`;
+                //tela.innerHTML += `region: ${pokemon[0].region}<br>`;
+                //tela.innerHTML += `evolutionaryLine: ${pokemon[0].evolutionaryLine}<br>`;
+                //tela.innerHTML += `<br>`;
+            //}
+
+        });
+    
+        }
+      </script>
+
+</body>
+</html>
