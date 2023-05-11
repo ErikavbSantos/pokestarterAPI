@@ -14,6 +14,9 @@
     <link rel="manifest" href="manifest.json" />
     <script>navigator.serviceWorker.register("service-worker.js")</script>
     <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!--coloquei isso para usar os scripts de jquery-->
+
 </head>
 <body>
     
@@ -52,36 +55,44 @@
             <input type="submit" value="Type" class="botao" onclick="porTipo()" required="required">
             <input type="submit" value="Region" class="botao" onclick="porRegiao()" required="required">
         </div>
+        <div class="botoes">
+            <input type="submit" value="See All" class="botao" onclick="teste()">
+        </div>
     </div>
-    <input type="submit" value="pome" class="botao" onclick="pome()">
-    <div class="imm" style="margin: 10px 90px;"></div>
     
+    <!-- Div que permite imprimir os Dados do MongoDB na tela -->
+    <div id="imm" style="margin: 10px 90px;"></div>
 
     <script>
-        function pome() {
-          $('.imm').empty();
+        function teste() {  //ALTERAR NOME DA FUNCTION PARA O ONCLICK DO BOTAO QUE FOR USAR
+            $('#imm').empty();  //limpando a div com id="imm", para posteriormente 'cospir' dados
     
-          var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://127.0.0.1:3000/pokemon/",
-            "method": "GET"
-          }
-    
-          $.ajax(settings).done(function (response) {
-            console.log(response);
-            var pokemon = response.pokemon;
-            console.log (pokemon);
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://127.0.0.1:3000/pokemon/",  //LEMBRAR DE ALTERAR PARA 3000
+                "method": "GET"
+            }
+        
+            $.ajax(settings).done(function (response) {
+                console.log(response);  //exibir o que ele recebe do banco
+                var pokemon = response.pokemons;  //especificar collection que sera usada, do mongo
+                console.log(pokemon);  //exibir os registros dessa collection
 
-            var tela = document.querySelector('.imm');
-            //for(var i=0; i<= carros.length; i++){
-              tela.innerHTML = `ashdgfuihdfiu`;
-                //tela.innerHTML += `name: ${pokemon[0].name}<br>`;
-                //tela.innerHTML += `type: ${pokemon[0].type}<br>`;
-                //tela.innerHTML += `region: ${pokemon[0].region}<br>`;
-                //tela.innerHTML += `evolutionaryLine: ${pokemon[0].evolutionaryLine}<br>`;
-                //tela.innerHTML += `<br>`;
-            //}
+
+            var tela = document.querySelector('#imm');
+
+            if (pokemon && pokemon.length > 0) {
+                for(var i=0; i < pokemon.length; i++){
+                    tela.innerHTML += `<b>Name:</b><br> ${pokemon[i].name}<br>`;
+                    tela.innerHTML += `<b>Type:</b><br> ${pokemon[i].type}<br>`;
+                    tela.innerHTML += `<b>Region:</b> ${pokemon[i].region}<br>`;
+                    tela.innerHTML += `<b>Evolutionary Line:</b><br> ${pokemon[i].evolutionaryLine}<br>`;
+                    tela.innerHTML += `<br>`; 
+            }
+            } else {
+                tela.innerHTML = "Nenhum pokemon encontrado.";
+            }
 
         });
     
